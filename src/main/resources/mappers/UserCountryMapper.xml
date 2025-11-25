@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newsapp.newsmind.mapper.UserCountryMapper">
+
+    <!-- 국가 추가 -->
+    <insert id="insertUserCountry">
+        INSERT INTO user_country (country_code, user_id, priority_ord)
+        VALUES (#{countryCode}, #{userId}, #{priorityOrd})
+    </insert>
+
+    <!-- 우선 국가 수정 선처리 -->
+    <update id="updatePrimaryUserCountryBefore">
+        UPDATE user_country
+        SET priority_ord = 2
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 우선 국가 수정 -->
+    <update id="updatePrimaryUserCountry">
+        UPDATE user_country
+        SET priority_ord = 1
+        WHERE user_id = #{userId}
+          AND country_code = #{countryCode}
+    </update>
+
+    <!-- 국가 선택 삭제 -->
+    <delete id="deleteUserCountry">
+        DELETE FROM user_country
+        WHERE user_id = #{userId}
+        AND country_code = #{countryCode}
+    </delete>
+
+    <!-- 국가 전체 삭제 (관심국가가 없을 수도) -->
+    <delete id="deleteAllUserCountry">
+        DELETE FROM user_country
+        WHERE user_id = #{userId}
+    </delete>
+
+    <!-- 국가 조회 (JOIN 추가) -->
+    <select id="selectUserCountryList" resultType="map">
+        SELECT
+            uc.country_code AS countryCode,
+            c.code_nm       AS countryName,
+            uc.priority_ord AS priorityOrd
+        FROM user_country uc
+                 LEFT JOIN code c
+                           ON c.code_ty = 'COUNTRY'
+                               AND c.code = uc.country_code
+        WHERE uc.user_id = #{userId}
+        ORDER BY uc.priority_ord ASC
+    </select>
+
+</mapper>

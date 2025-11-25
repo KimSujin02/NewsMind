@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newsapp.newsmind.mapper.UserCategoryMapper">
+    <!-- 카테고리 추가 -->
+    <insert id="insertUserCategory">
+        INSERT INTO user_category (category_id, user_id, priority_ord)
+        VALUES (#{categoryId}, #{userId}, #{priorityOrd})
+    </insert>
+
+    <!-- 전체 삭제 -->
+    <delete id="deleteAllUserCategory">
+        DELETE FROM user_category
+        WHERE user_id = #{userId}
+    </delete>
+
+    <!-- 조회: code 테이블과 JOIN -->
+    <select id="selectUserCategoryList" resultType="map">
+        SELECT
+            uc.category_id AS categoryId,
+            c.code_nm       AS categoryName,
+            uc.priority_ord AS priorityOrd
+        FROM user_category uc
+        LEFT JOIN code c
+            ON c.code_ty = 'CATEGORY'
+            AND c.code = uc.category_id
+        WHERE uc.user_id = #{userId}
+        ORDER BY uc.priority_ord ASC
+    </select>
+</mapper>

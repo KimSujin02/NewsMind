@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newsapp.newsmind.mapper.UserKeywordMapper">
+    <!-- 다음 키워드 ID 생성 -->
+    <select id="selectNextKeywordId" resultType="string">
+        SELECT CONCAT('KEYWORD_', LPAD(IFNULL((SELECT SUBSTRING(MAX(keyword_id), 10) + 1 FROM user_keyword), 1), 9, '0'))
+    </select>
+    <!-- 키워드 추가 -->
+    <insert id="insertUserKeyword">
+        INSERT INTO user_keyword (keyword_id, user_id, keyword, created_at)
+        VALUES (#{keywordId}, #{userId}, #{keyword}, NOW())
+    </insert>
+    <!-- 삭제 -->
+    <delete id="deleteUserKeyword">
+        DELETE FROM user_keyword
+        WHERE user_id = #{userId}
+          AND keyword_id = #{keywordId}
+    </delete>
+    <!-- 조회 -->
+    <select id="selectUserKeywordList" resultType="map">
+        SELECT
+            keyword_id AS keywordId,
+            keyword,
+            created_at AS createdAt
+        FROM user_keyword
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+</mapper>
