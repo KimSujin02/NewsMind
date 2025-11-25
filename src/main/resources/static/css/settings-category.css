@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    background: #f4f4f6;
+    font-family: 'Pretendard', sans-serif;
+}
+
+.wrapper {
+    max-width: 430px;
+    margin: auto;
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 20px 25px;
+    box-sizing: border-box;
+}
+
+/* --- 초기 모드 제목 --- */
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* --- 수정 모드 상단바 --- */
+.top-bar {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.back-btn {
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.center-menu {
+    margin-left: 20px;
+}
+
+.center-menu a {
+    margin-right: 18px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #444;
+}
+
+.center-menu .active {
+    font-weight: 700;
+}
+
+/* --- 수정 모드 제목 --- */
+.edit-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 15px 0;
+    text-align: center;
+}
+
+/* --- 버튼(Grid) --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.category-btn {
+    padding: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.category-btn.selected {
+    background: #d8e5ff;
+    border-color: #7ba1ff;
+}
+
+/* --- 하단 버튼 --- */
+.bottom-buttons {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.skip-btn,
+.save-btn {
+    width: 140px;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.skip-btn {
+    background: #ddd;
+}
+
+.save-btn {
+    background: #497cff;
+    color: white;
+}
+
+/* 숨김 처리 */
+.hidden {
+    display: none;
+}

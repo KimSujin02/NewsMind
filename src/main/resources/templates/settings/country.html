@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>관심국가 설정</title>
+    <link rel="stylesheet" href="/css/settings-country.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- init 전용 제목/설명 영역 -->
+    <div id="initHeader" class="init-header hidden">
+        <div class="title">관심국가 설정</div>
+        <div class="desc">뉴스를 우선적으로 보고 싶은 국가를 선택하세요.</div>
+    </div>
+
+    <!-- edit 모드 전용 탭 헤더 -->
+    <div id="editHeader" class="edit-header hidden">
+        <div class="header-top">
+            <span class="back-btn" onclick="history.back()">◀</span>
+            <span class="title">설정 관리</span>
+        </div>
+        <div class="tabs">
+            <span class="tab active">국가</span>
+            <span class="tab" onclick="location.href='/settings/category'">카테고리</span>
+            <span class="tab" onclick="location.href='/settings/keyword'">키워드</span>
+        </div>
+    </div>
+
+    <!-- 국가 목록 -->
+    <div class="grid" id="countryGrid"></div>
+
+    <!-- init 모드 하단 버튼 -->
+    <div id="initBtns" class="bottom-btns hidden">
+        <button id="skipBtn" class="btn-gray" onclick="openSkipPopup()">나중에 설정</button>
+        <button class="btn-blue" onclick="goNext()">저장</button>
+    </div>
+
+    <!-- edit 모드 하단 버튼 -->
+    <div id="editBtns" class="bottom-btns hidden">
+        <button class="btn-blue" onclick="goNext()">저장</button>
+    </div>
+
+    <!-- init 모드 팝업 -->
+    <div id="skipPopup" class="popup hidden">
+        <div class="popup-box">
+            <p>나중에 설정 하면 관심국가는<br>사용자 기기의 국가로 설정됩니다!</p>
+            <div class="pop-btns">
+                <button class="btn-blue" onclick="confirmSkip()">확인</button>
+                <button class="btn-gray" onclick="closeSkipPopup()">취소</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/settings-country.js"></script>
+</body>
+</html>

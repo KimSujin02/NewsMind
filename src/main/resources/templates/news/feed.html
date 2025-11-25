@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>NewsMind - 뉴스 피드</title>
+    <style>
+        body { font-family:sans-serif; max-width: 640px; margin:0 auto; padding:16px; }
+        header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+        .article { border-bottom:1px solid #eee; padding:12px 0; cursor:pointer; }
+        .article-title { font-weight:bold; margin-bottom:4px; }
+        .article-meta { font-size:12px; color:#666; }
+    </style>
+</head>
+<body>
+<header>
+    <h2>NewsMind</h2>
+    <div>
+        <button onclick="goSettings()">설정</button>
+        <button onclick="logout()">로그아웃</button>
+    </div>
+</header>
+
+<p id="welcome"></p>
+
+<div id="article-list">
+    <!-- 여기엔 /api/news 같은 곳에서 가져온 리스트를 뿌리면 됨 -->
+</div>
+
+<script>
+    function getCookie(name) {
+        const value = document.cookie
+            .split('; ')
+            .find(row => row.startsWith(name + '='));
+        return value ? decodeURIComponent(value.split('=')[1]) : null;
+    }
+
+    function goSettings() {
+        window.location.href = '/settings.html';
+    }
+
+    function logout() {
+        // 쿠키 만료 처리
+        document.cookie = "token=; path=/; max-age=0;";
+        window.location.href = '/login.html';
+    }
+
+    (async function init() {
+        const token = getCookie('token');
+        if (!token) {
+            window.location.href = '/login.html';
+            return;
+        }
+
+        // 내 정보/최초설정 여부 확인
+        const res = await fetch('/api/me', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+
+        if (res.status === 401) {
+            window.location.href = '/login.html';
+            return;
+        }
+
+        const me = await res.json();
+
+        if (!me.hasCompletedSetup) {
+            // 혹시 설정 안한 상태로 들어오면 다시 설정 페이지로
+            window.location.href = '/settings.html';
+            return;
+        }
+
+        document.getElementById('welcome').textContent =
+            (me.nickname || me.email || '사용자') + '님, 오늘의 뉴스예요.';
+
+        // TODO: 실제 뉴스 API 연동
+        // 예시용 더미 데이터
+        const dummy = [
+            { title: '[AI] GPU 시장 동향', source: 'BBC', pubDate: '2025-11-25' },
+            { title: '[경제] 미국 금리 동결', source: 'Bloomberg', pubDate: '2025-11-24' }
+        ];
+
+        const listEl = document.getElementById('article-list');
+        dummy.forEach(a => {
+            const div = document.createElement('div');
+            div.className = 'article';
+            div.innerHTML = `
+            <div class="article-title">${a.title}</div>
+            <div class="article-meta">${a.source} · ${a.pubDate}</div>
+        `;
+            listEl.appendChild(div);
+        });
+    })();
+</script>
+</body>
+</html>

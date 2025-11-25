@@ -1,0 +1,262 @@
+/* settings.css */
+
+:root {
+    --nm-blue: #2957a4;
+    --nm-blue-light: #e6efff;
+    --nm-border: #d3d9e4;
+    --nm-text-main: #222;
+    --nm-text-sub: #666;
+    --nm-bg: #f5f6fb;
+    --nm-radius-card: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background-color: var(--nm-bg);
+    color: var(--nm-text-main);
+}
+
+/* 공통 레이아웃 */
+
+.nm-wrapper {
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #e1e4ec;
+    border-right: 1px solid #e1e4ec;
+}
+
+.nm-header {
+    height: 54px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid #e1e4ec;
+    background: #fff;
+}
+
+.nm-header-title {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.nm-header-back {
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--nm-text-sub);
+}
+
+.nm-content {
+    flex: 1;
+    padding: 16px; /* bottom padding 제거 */
+    overflow-y: auto;
+}
+
+/* 인사 / 설명 */
+
+.nm-greeting-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.nm-greeting-sub {
+    font-size: 14px;
+    color: var(--nm-text-sub);
+    line-height: 1.5;
+}
+
+.nm-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.nm-section-sub {
+    font-size: 13px;
+    color: var(--nm-text-sub);
+    margin-bottom: 16px;
+}
+
+/* 버튼들 */
+
+.nm-bottom-bar {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 16px 20px; /* 버튼이 숨지지 않도록 수정 */
+    background: #fff;
+    border-top: 1px solid #e1e4ec;
+    display: flex;
+    gap: 8px;
+}
+
+.nm-btn {
+    border-radius: 999px;
+    padding: 11px 16px;
+    font-size: 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    flex: 1;
+}
+
+.nm-btn-primary {
+    background: var(--nm-blue);
+    color: #fff;
+}
+
+.nm-btn-secondary {
+    background: #fff;
+    color: var(--nm-blue);
+    border-color: var(--nm-blue);
+}
+
+.nm-btn-ghost {
+    background: #fff;
+    color: var(--nm-text-sub);
+    border-color: var(--nm-border);
+}
+
+/* country grid */
+
+.nm-chip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.nm-chip {
+    border-radius: 999px;
+    padding: 10px 8px;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid var(--nm-border);
+    background: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nm-chip.selected {
+    border-color: var(--nm-blue);
+    background: var(--nm-blue-light);
+    color: var(--nm-blue);
+    font-weight: 600;
+}
+
+/* 카테고리 카드 */
+
+.nm-category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.nm-category-card {
+    border-radius: 16px;
+    border: 1px solid var(--nm-border);
+    padding: 18px 6px;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+}
+
+.nm-category-card.selected {
+    border-color: var(--nm-blue);
+    box-shadow: 0 0 0 1px rgba(41,87,164,0.15);
+}
+
+/* 키워드 태그 */
+
+.nm-tag-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.nm-text-input {
+    flex: 1;
+    border-radius: 999px;
+    border: 1px solid var(--nm-border);
+    padding: 10px 12px;
+    font-size: 13px;
+    outline: none;
+}
+
+.nm-text-input:focus {
+    border-color: var(--nm-blue);
+}
+
+.nm-tag-add-btn {
+    padding: 0 14px;
+    border-radius: 999px;
+    border: none;
+    background: var(--nm-blue);
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.nm-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.nm-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--nm-blue-light);
+    color: var(--nm-blue);
+    font-size: 12px;
+}
+
+.nm-tag-remove {
+    cursor: pointer;
+    font-size: 11px;
+}
+
+/* 초기 인사 화면 전용 */
+
+.nm-initial-hero {
+    margin-top: 20px;
+}
+
+.nm-logo {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nm-blue);
+    margin-bottom: 10px;
+}
+
+.nm-initial-desc-box {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 14px 12px;
+    border-radius: 12px;
+    background: #f2f4ff;
+    font-size: 12px;
+    color: var(--nm-text-sub);
+    line-height: 1.6;
+}

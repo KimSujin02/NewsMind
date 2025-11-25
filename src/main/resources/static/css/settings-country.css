@@ -1,0 +1,182 @@
+/* ===== 공통 ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f8f8fb;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+/* 카드 컨테이너 */
+.container {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 24px 20px 32px;
+    position: relative;
+}
+
+/* ===== 헤더 영역 ===== */
+
+/* 최초 설정 모드 헤더 */
+.init-header {
+    margin-bottom: 24px;
+}
+
+.init-header .title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.init-header .desc {
+    font-size: 14px;
+    color: #777;
+}
+
+/* 수정 모드 헤더 (탭 포함) */
+.edit-header {
+    margin-bottom: 24px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.back-btn {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.edit-header .title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* 탭 영역 */
+.tabs {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7f0;
+    padding-bottom: 8px;
+}
+
+.tab {
+    cursor: pointer;
+    padding-bottom: 4px;
+    color: #777;
+}
+
+.tab.active {
+    color: #2663ff;
+    font-weight: 600;
+    border-bottom: 2px solid #2663ff;
+}
+
+/* ===== 국가 버튼 그리드 ===== */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.country-btn {
+    border: 1px solid #bfc4d3;
+    border-radius: 10px;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    background: #ffffff;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.country-btn.selected {
+    background: #e9f1ff;
+    border-color: #88aaff;
+    box-shadow: 0 0 0 1px rgba(136,170,255,0.4);
+}
+
+/* ===== 하단 버튼 영역 ===== */
+
+.bottom-btns {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* 공통 버튼 스타일 */
+.btn-blue,
+.btn-gray {
+    min-width: 110px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+/* 나중에 설정 */
+.btn-gray {
+    background: #ffffff;
+    border-color: #d1d5e4;
+    color: #555;
+}
+
+/* 저장 */
+.btn-blue {
+    background: #2663ff;
+    border-color: #2663ff;
+    color: #ffffff;
+}
+
+/* ===== 최초 모드 팝업 ===== */
+
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.popup-box {
+    width: 280px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px 20px 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.popup-box p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+}
+
+.pop-btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ===== 공통 util ===== */
+.hidden {
+    display: none;
+}
