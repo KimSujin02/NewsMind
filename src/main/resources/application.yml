@@ -5,37 +5,46 @@ spring:
     url: ${DEV_DB_URL}
     username: ${DEV_DB_USERNAME}
     password: ${DEV_DB_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
   sql:
     init:
       mode: always
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    thymeleaf:
+      cache: false
   ai:
     openai:
-      api-key: ${OPENAI_API_KEY}     # ????
+      api-key: ${OPENAI_API_KEY}
       chat:
         options:
           model: gpt-4o-mini
+# MyBatis 설정
+mybatis:
+  mapper-locations: classpath:/mappers/*.xml
+  type-aliases-package: com.newsapp.newsmind.domain
+  configuration:
+    map-underscore-to-camel-case: true
 app:
   ai:
-    enabled: true         # ??? false? ?? ??
-  search:
-    provider: newsapi     # ??? ??? ?? ???
-    newsapi:
-      api-key: ${NEWS_API_KEY}
-      page-size: 10
-    translate:
-      provider: azure
+    enabled: false
+  newsdata:
+    api-key: ${NEWSDATA_API_KEY}
+    base-url: https://newsdata.io/api/1
 azure:
   translator:
     key: ${AZURE_TRANSLATOR_KEY}
     endpoint: https://api.cognitive.microsofttranslator.com
-    region: eastasia   # ??? ??
-
+    region: eastasia
+kakao:
+  client-id: ${KAKAO_LOGIN_REST_API_KEY}
+  redirect-uri: http://localhost:8080/api/auth/kakao/callback
 logging:
   level:
     org.hibernate.SQL: debug
+jwt:
+  secret-key: "A7F6C1C492D4A9B7E3F1D6C9A4F8E2B1"
+  access-expire-ms: 3600000        # 1시간
+  refresh-expire-ms: 1209600000    # 14일

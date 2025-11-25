@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newsapp.newsmind.mapper.UserMapper">
+    <insert id="insertUser" parameterType="com.newsapp.newsmind.dto.UserDto"
+            useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO user (
+            email,
+            nickname,
+            created_at,
+            last_login_at
+        )
+        VALUES (
+                   #{email},
+                   #{nickname},
+                   NOW(),
+                   NOW()
+               )
+    </insert>
+
+    <select id="findByUserId" parameterType="long" resultType="com.newsapp.newsmind.dto.UserDto">
+        SELECT
+            user_id AS userId,
+            email,
+            nickname,
+            created_at AS createdAt,
+            last_login_at AS lastLoginAt,
+            setting_completed AS settingCompleted
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <update id="updateSettingCompleted">
+        UPDATE user
+        SET setting_completed = 1
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateLastLoginAt">
+        UPDATE user
+        SET last_login_at = #{lastLoginAt}
+        WHERE user_id = #{userId}
+    </update>
+</mapper>

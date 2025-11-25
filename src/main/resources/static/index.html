@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>NewsMind</title>
+</head>
+<body>
+<h2>NewsMind 로딩 중...</h2>
+<p>잠시만요, 로그인 상태를 확인하고 있어요.</p>
+
+<script>
+    // 쿠키에서 값 꺼내는 함수
+    function getCookie(name) {
+        const value = document.cookie
+            .split('; ')
+            .find(row => row.startsWith(name + '='));
+        return value ? decodeURIComponent(value.split('=')[1]) : null;
+    }
+
+    (async function () {
+        const token = getCookie('token');
+
+        // 토큰 없으면 로그인 페이지로
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+
+            if (res.status === 401) {
+                // 토큰 만료/불일치 → 다시 로그인
+                window.location.href = '/login';
+                return;
+            }
+
+            const me = await res.json();
+
+            if (!me.hasCompletedSetup) {
+                // 아직 최초 설정 안했으면 설정 화면으로
+                window.location.href = '/settings/initial';
+            } else {
+                // 설정 완료 상태면 뉴스 목록 화면으로
+                window.location.href = '/news/feed';
+            }
+        } catch (e) {
+            console.error(e);
+            // 에러 나면 일단 로그인으로 보내기
+            window.location.href = '/login';
+        }
+    })();
+</script>
+</body>
+</html>

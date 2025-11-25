@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newsapp.newsmind.mapper.UserAuthMapper">
+    <insert id="insertUserAuth" parameterType="com.newsapp.newsmind.dto.UserAuthDto"
+            useGeneratedKeys="true" keyProperty="authId">
+        INSERT INTO user_auth (
+            user_id,
+            provider,
+            provider_user_id,
+            access_token,
+            refresh_token,
+            connected_at
+        )
+        VALUES (
+                   #{userId},
+                   #{provider},
+                   #{providerUserId},
+                   #{accessToken},
+                   #{refreshToken},
+                   #{connectedAt}
+               )
+    </insert>
+
+    <!-- 카카오 ID로 user_auth 조회 -->
+    <select id="findByProviderUserId" parameterType="string" resultType="com.newsapp.newsmind.dto.UserAuthDto">
+        SELECT
+            auth_id AS authId,
+            user_id AS userId,
+            provider,
+            provider_user_id AS providerUserId,
+            access_token AS accessToken,
+            refresh_token AS refreshToken,
+            connected_at AS connectedAt
+        FROM user_auth
+        WHERE provider = 'kakao'
+          AND provider_user_id = #{providerUserId}
+            LIMIT 1
+    </select>
+
+    <!-- 카카오 ID로 User Auth 조회 -->
+    <select id="findUserByKakaoId" resultType="com.newsapp.newsmind.dto.UserDto">
+        SELECT
+            u.user_id AS userId,
+            u.email,
+            u.nickname,
+            u.created_at AS createdAt,
+            u.last_login_at AS lastLoginAt
+        FROM user_auth ua
+                 JOIN user u ON ua.user_id = u.user_id
+        WHERE ua.provider = 'kakao'
+          AND ua.provider_user_id = #{providerUserId}
+            LIMIT 1
+    </select>
+
+    <update id="updateTokens">
+        UPDATE user_auth
+        SET
+            access_token = #{accessToken},
+            refresh_token = #{refreshToken},
+            connected_at = #{connectedAt}
+        WHERE provider = #{provider}
+          AND provider_user_id = #{providerUserId}
+    </update>
+
+</mapper>

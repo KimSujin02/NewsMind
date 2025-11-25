@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Mind - 로그인</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #F8F9FC;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E2A78;
+            margin-bottom: 40px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .kakao-btn {
+            background-color: #FEE500;
+            color: #3A1D1D;
+            padding: 12px 0;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .kakao-btn:hover {
+            background-color: #FDD400;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* 반응형 */
+        @media (max-width: 480px) {
+            .title {
+                font-size: 24px;
+            }
+            .login-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">News Mind</div>
+
+    <div class="login-card">
+        <div class="subtitle">글로벌 뉴스를 더 쉽게, 더 빠르게</div>
+
+        <button class="kakao-btn" onclick="kakaoLogin()">
+            카카오로 로그인하기
+        </button>
+    </div>
+
+    <div class="footer">
+        © 2025 NewsMind. All rights reserved.
+    </div>
+
+</div>
+
+<script>
+    function kakaoLogin() {
+        window.location.href = '/api/auth/kakao/login-url';
+    }
+    fetch("/api/auth/check")
+        .then(res => res.json())
+        .then(data => {
+            if (data.loggedIn) {
+                window.location.href = "/";
+            }
+        });
+</script>
+
+</body>
+</html>

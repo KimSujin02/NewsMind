@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>NewsMind 첫 설정</title>
+    <link rel="stylesheet" href="/css/settings.css">
+</head>
+<body>
+<div class="nm-wrapper">
+
+    <div class="nm-header">
+        <div class="nm-header-title">첫 설정 안내</div>
+    </div>
+
+    <div class="nm-content">
+        <div class="nm-initial-hero">
+            <div class="nm-logo">News Mind</div>
+            <div class="nm-greeting-title">처음 오셨군요!</div>
+            <p class="nm-greeting-sub">
+                자주 보는 국가, 관심 있는 카테고리와 키워드를 설정해 두면<br>
+                처음부터 취향 맞는 뉴스만 모아서 보여드릴게요.
+            </p>
+
+            <div class="nm-initial-desc-box">
+                • 관심 국가는 최소 1개 이상 선택해야 합니다.<br>
+                • 카테고리와 키워드는 나중에 언제든지 다시 변경할 수 있어요.<br>
+                • 모든 설정을 마치면 News Feed 화면으로 이동합니다.
+            </div>
+            <button class="nm-btn nm-btn-primary" id="btn-start">지금 설정 시작하기</button>
+        </div>
+    </div>
+
+   <!-- <div class="nm-bottom-bar">
+        <button class="nm-btn nm-btn-primary" id="btn-start">지금 설정 시작하기</button>
+    </div>-->
+</div>
+
+<script>
+    document.getElementById('btn-start').addEventListener('click', function () {
+        // 최초 설정 모드 → mode=init
+        window.location.href = '/settings/country?mode=init';
+    });
+</script>
+</body>
+</html>
