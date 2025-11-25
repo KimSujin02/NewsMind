@@ -1,117 +1,182 @@
-body {
-    margin: 0;
-    background: #f4f4f6;
-    font-family: 'Pretendard', sans-serif;
-}
-
-.wrapper {
-    max-width: 430px;
-    margin: auto;
-    background: #ffffff;
-    min-height: 100vh;
-    padding: 20px 25px;
+/* ===== 공통 ===== */
+* {
     box-sizing: border-box;
 }
 
-/* --- 초기 모드 제목 --- */
-.title {
-    font-size: 18px;
+body {
+    margin: 0;
+    background: #f8f8fb;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+/* 카드 컨테이너 */
+.container {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 24px 20px 32px;
+    position: relative;
+}
+
+/* ===== 헤더 영역 ===== */
+
+/* 최초 설정 모드 헤더 */
+.init-header {
+    margin-bottom: 24px;
+}
+
+.init-header .title {
+    font-size: 20px;
     font-weight: 700;
-    margin-top: 10px;
+    margin-bottom: 8px;
 }
 
-.desc {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 20px;
+.init-header .desc {
+    font-size: 14px;
+    color: #777;
 }
 
-/* --- 수정 모드 상단바 --- */
-.top-bar {
+/* 수정 모드 헤더 (탭 포함) */
+.edit-header {
+    margin-bottom: 24px;
+}
+
+.header-top {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .back-btn {
     font-size: 18px;
-    background: none;
-    border: none;
     cursor: pointer;
 }
 
-.center-menu {
-    margin-left: 20px;
+.edit-header .title {
+    font-size: 16px;
+    font-weight: 700;
 }
 
-.center-menu a {
-    margin-right: 18px;
-    text-decoration: none;
+/* 탭 영역 */
+.tabs {
+    display: flex;
+    gap: 16px;
     font-size: 14px;
-    color: #444;
+    border-bottom: 1px solid #e5e7f0;
+    padding-bottom: 8px;
 }
 
-.center-menu .active {
-    font-weight: 700;
+.tab {
+    cursor: pointer;
+    padding-bottom: 4px;
+    color: #777;
 }
 
-/* --- 수정 모드 제목 --- */
-.edit-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 15px 0;
-    text-align: center;
+.tab.active {
+    color: #2663ff;
+    font-weight: 600;
+    border-bottom: 2px solid #2663ff;
 }
 
-/* --- 버튼(Grid) --- */
+/* ===== 국가 버튼 그리드 ===== */
+
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    margin-top: 20px;
 }
 
 .category-btn {
-    padding: 12px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #bfc4d3;
     border-radius: 10px;
+    padding: 10px 0;
     text-align: center;
-    cursor: pointer;
     font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    background: #ffffff;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .category-btn.selected {
-    background: #d8e5ff;
-    border-color: #7ba1ff;
+    background: #e9f1ff;
+    border-color: #88aaff;
+    box-shadow: 0 0 0 1px rgba(136,170,255,0.4);
 }
 
-/* --- 하단 버튼 --- */
-.bottom-buttons {
-    margin-top: 40px;
-    text-align: center;
+/* ===== 하단 버튼 영역 ===== */
+
+.bottom-btns {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
 }
 
-.skip-btn,
-.save-btn {
-    width: 140px;
-    padding: 12px 0;
-    border-radius: 12px;
-    border: none;
+/* 공통 버튼 스타일 */
+.btn-blue,
+.btn-gray {
+    min-width: 110px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    border: 1px solid transparent;
     cursor: pointer;
-    margin: 0 5px;
 }
 
-.skip-btn {
-    background: #ddd;
+/* 나중에 설정 */
+.btn-gray {
+    background: #ffffff;
+    border-color: #d1d5e4;
+    color: #555;
 }
 
-.save-btn {
-    background: #497cff;
-    color: white;
+/* 저장 */
+.btn-blue {
+    background: #2663ff;
+    border-color: #2663ff;
+    color: #ffffff;
 }
 
-/* 숨김 처리 */
+/* ===== 최초 모드 팝업 ===== */
+
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.popup-box {
+    width: 280px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px 20px 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.popup-box p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+}
+
+.pop-btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ===== 공통 util ===== */
 .hidden {
     display: none;
 }

@@ -1,93 +1,91 @@
-// settings-keyword.js
+let keywords = [];
 
-document.addEventListener('DOMContentLoaded', function () {
-    const input = document.getElementById('keyword-input');
-    const btnAdd = document.getElementById('btn-add');
-    const list = document.getElementById('keyword-list');
-    const btnSkip = document.getElementById('btn-skip');
-    const btnFinish = document.getElementById('btn-finish');
+window.onload = () => {
+    document.getElementById("addBtn").addEventListener("click", addKeyword);
 
-    SettingsMode.toggleSkipButton(btnSkip);
+    document.getElementById("keywordInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") addKeyword();
+    });
+};
 
-    function addKeyword(text) {
-        const value = text.trim();
-        if (!value) return;
+// 키워드 추가
+function addKeyword() {
+    const input = document.getElementById("keywordInput");
+    let value = input.value.trim();
 
-        // 중복 체크
-        const exists = Array.from(list.querySelectorAll('.nm-tag-text'))
-            .some(span => span.textContent === value);
-        if (exists) {
-            alert('이미 추가된 키워드입니다.');
-            return;
-        }
+    if (value === "") return;
 
-        const tag = document.createElement('div');
-        tag.className = 'nm-tag';
+    // 중복 방지
+    if (keywords.includes(value)) {
+        alert("이미 추가된 키워드입니다.");
+        input.value = "";
+        return;
+    }
 
-        const span = document.createElement('span');
-        span.className = 'nm-tag-text';
-        span.textContent = value;
+    keywords.push(value);
+    input.value = "";
+    renderKeywords();
+}
 
-        const x = document.createElement('span');
-        x.className = 'nm-tag-remove';
-        x.textContent = '×';
-        x.addEventListener('click', () => tag.remove());
+// 키워드 삭제
+function removeKeyword(keyword) {
+    keywords = keywords.filter(k => k !== keyword);
+    renderKeywords();
+}
 
-        tag.appendChild(span);
-        tag.appendChild(x);
+// 태그 렌더링
+function renderKeywords() {
+    const list = document.getElementById("keywordList");
+    list.innerHTML = "";
+
+    keywords.forEach(k => {
+        const tag = document.createElement("div");
+        tag.classList.add("tag");
+        tag.innerHTML = `
+            ${k}
+            <span class="remove" onclick="removeKeyword('${k}')">x</span>
+        `;
         list.appendChild(tag);
+    });
+}
+
+// 나중에 설정 = 초기 모드일 경우 다음 화면으로 이동
+function skipSetting() {
+    location.href = "/settings/finish?mode=initial";
+}
+
+// 저장 (백엔드 연결 예정)
+function saveKeywords() {
+
+    if (keywords.length === 0) {
+        alert("최소 1개 이상의 키워드를 입력해주세요.");
+        return;
     }
 
-    btnAdd.addEventListener('click', function () {
-        addKeyword(input.value);
-        input.value = '';
-        input.focus();
-    });
+    // ★ 백엔드 연동은 아래 AJAX 사용 (주석만 남김)
+    /*
+    fetch("/api/settings/keyword/save", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ keywords })
+    }).then(res => res.json())
+      .then(() => {
+          const mode = new URLSearchParams(location.search).get("mode");
+          if (mode === "initial") {
+              location.href = "/settings/finish?mode=initial";
+          } else {
+              alert("저장되었습니다.");
+              history.back();
+          }
+      });
+    */
 
-    input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            addKeyword(input.value);
-            input.value = '';
-        }
-    });
-
-    function collectKeywords() {
-        return Array.from(list.querySelectorAll('.nm-tag-text'))
-            .map(span => span.textContent);
+    // 임시 동작: 다음 페이지로 이동
+    const mode = new URLSearchParams(location.search).get("mode");
+    if (mode === "initial") {
+        location.href = "/settings/finish?mode=initial";
+    } else {
+        alert("저장되었습니다.");
+        history.back();
     }
-
-    function goToFeed() {
-        window.location.href = '/news/feed';
-    }
-
-    btnFinish.addEventListener('click', function () {
-        const keywords = collectKeywords();
-
-        // TODO: 백엔드 저장 + user.setting_completed = true 로 업데이트
-        /*
-        fetch('/api/settings/keyword', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ keywords: keywords })
-        }).then(res => {
-            if (!res.ok) throw new Error();
-            return res.json();
-        }).then(() => {
-            return fetch('/api/settings/complete', { method: 'POST' });
-        }).then(() => {
-            goToFeed();
-        }).catch(() => {
-            alert('설정 저장 중 오류가 발생했습니다.');
-        });
-        */
-
-        // 일단은 바로 feed 로 이동
-        goToFeed();
-    });
-
-    btnSkip.addEventListener('click', function () {
-        // 최초 설정에서라도 스킵 시, 백엔드에서 setting_completed = true 로 처리해줄 예정
-        goToFeed();
-    });
-});
+}

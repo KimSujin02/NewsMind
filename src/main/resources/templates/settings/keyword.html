@@ -2,39 +2,28 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>관심 키워드 설정</title>
-    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/settings-keyword.css">
 </head>
 <body>
-<div class="nm-wrapper">
-    <div class="nm-header">
-        <div class="nm-header-title">관심 키워드 설정</div>
+<div class="container">
+    <div class="title">키워드 설정</div>
+    <div class="desc">관심있는 키워드를 입력해주세요.</div>
+
+    <div class="keyword-input-box">
+        <input type="text" id="keywordInput" placeholder="관심있는 키워드를 입력해주세요">
+        <button id="addBtn">추가 +</button>
     </div>
 
-    <div class="nm-content">
-        <div class="nm-section-title">관심 있는 키워드를 추가해 보세요</div>
-        <div class="nm-section-sub">
-            예: GPU, AI, Tesla, Google, 반도체, 스타트업 등<br>
-            입력 후 <b>추가</b> 버튼을 누르면 태그가 생성됩니다.
-        </div>
+    <div class="keyword-list" id="keywordList"></div>
 
-        <div class="nm-tag-input-row">
-            <input type="text" id="keyword-input" class="nm-text-input" placeholder="키워드를 입력하세요">
-            <button class="nm-tag-add-btn" id="btn-add">추가</button>
-        </div>
-
-        <div class="nm-tag-list" id="keyword-list">
-            <!-- 이미 등록된 키워드가 있다면 서버 렌더링으로 넣어도 됨 -->
-        </div>
-    </div>
-
-    <div class="nm-bottom-bar">
-        <button class="nm-btn nm-btn-ghost" id="btn-skip">나중에 설정하기</button>
-        <button class="nm-btn nm-btn-primary" id="btn-finish">저장하고 시작하기</button>
+    <div class="btn-area">
+        <button class="btn-skip" onclick="skipSetting()">나중에 설정</button>
+        <button class="btn-save" onclick="saveKeywords()">저장</button>
     </div>
 </div>
 
-<script src="/js/settings-common.js"></script>
 <script src="/js/settings-keyword.js"></script>
 </body>
 </html>

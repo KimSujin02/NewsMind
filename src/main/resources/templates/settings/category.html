@@ -1,44 +1,47 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>카테고리 설정</title>
     <link rel="stylesheet" href="/css/settings-category.css">
 </head>
 <body>
-<div class="wrapper">
 
-    <!-- 수정 모드 상단바 -->
-    <div id="editHeader" class="top-bar hidden">
-        <button class="back-btn" onclick="history.back()">◀</button>
-        <div class="center-menu">
-            <a href="/settings/country?mode=edit">국가</a>
-            <a class="active" href="/settings/category?mode=edit">카테고리</a>
-            <a href="/settings/keyword?mode=edit">키워드</a>
+<div class="container">
+
+    <!-- init 전용 제목/설명 영역 -->
+    <div id="initHeader" class="init-header hidden">
+        <div class="title">카테고리 설정</div>
+        <div class="desc">관심있는 카테고리를 선택하세요.</div>
+    </div>
+
+    <!-- edit 모드 전용 탭 헤더 -->
+    <div id="editHeader" class="edit-header hidden">
+        <div class="header-top">
+            <span class="back-btn" onclick="history.back()">◀</span>
+            <span class="title">설정 관리</span>
+        </div>
+        <div class="tabs">
+            <span class="tab" onclick="location.href='/settings/country'">국가</span>
+            <span class="tab active">카테고리</span>
+            <span class="tab" onclick="location.href='/settings/keyword'">키워드</span>
         </div>
     </div>
 
-    <!-- 초기 모드 제목 -->
-    <div id="initialTitle" class="title hidden">카테고리 설정</div>
-    <div id="initialDesc" class="desc hidden">
-        관심 있는 카테고리를 선택해주세요.
+    <!-- 국가 목록 -->
+    <div class="grid" id="categoryGrid"></div>
+
+    <!-- init 모드 하단 버튼 -->
+    <div id="initBtns" class="bottom-btns hidden">
+        <button id="skipBtn" class="btn-gray" onclick="confirmSkip()">나중에 설정</button>
+        <button class="btn-blue" onclick="goNext()">저장</button>
     </div>
 
-    <!-- 수정 모드 제목 -->
-    <div id="editTitle" class="edit-title hidden">설정 관리</div>
-
-    <!-- 카테고리 버튼 영역 -->
-    <div class="grid" id="categoryGrid">
-        <!-- JS가 버튼 생성함 -->
+    <!-- edit 모드 하단 버튼 -->
+    <div id="editBtns" class="bottom-btns hidden">
+        <button class="btn-blue" onclick="goNext()">저장</button>
     </div>
-
-    <!-- 하단 버튼 -->
-    <div class="bottom-buttons">
-        <button id="skipBtn" class="skip-btn hidden" onclick="skipSetting()">나중에 설정</button>
-        <button class="save-btn" onclick="saveCategories()">저장</button>
-    </div>
-
 </div>
 
 <script src="/js/settings-category.js"></script>
