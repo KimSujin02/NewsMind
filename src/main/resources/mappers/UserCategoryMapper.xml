@@ -4,8 +4,8 @@
 <mapper namespace="com.newsapp.newsmind.mapper.UserCategoryMapper">
     <!-- 카테고리 추가 -->
     <insert id="insertUserCategory">
-        INSERT INTO user_category (category_id, user_id, priority_ord)
-        VALUES (#{categoryId}, #{userId}, #{priorityOrd})
+        INSERT INTO user_category (category_code, user_id, priority_ord)
+        VALUES (#{categoryCode}, #{userId}, #{priorityOrd})
     </insert>
 
     <!-- 전체 삭제 -->
@@ -17,13 +17,13 @@
     <!-- 조회: code 테이블과 JOIN -->
     <select id="selectUserCategoryList" resultType="map">
         SELECT
-            uc.category_id AS categoryId,
+            uc.category_code AS categoryCode,
             c.code_nm       AS categoryName,
             uc.priority_ord AS priorityOrd
         FROM user_category uc
         LEFT JOIN code c
             ON c.code_ty = 'CATEGORY'
-            AND c.code = uc.category_id
+            AND c.code = uc.category_code
         WHERE uc.user_id = #{userId}
         ORDER BY uc.priority_ord ASC
     </select>

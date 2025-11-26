@@ -40,7 +40,7 @@ azure:
     region: eastasia
 kakao:
   client-id: ${KAKAO_LOGIN_REST_API_KEY}
-  redirect-uri: http://localhost:8080/api/auth/kakao/callback
+  redirect-uri: ${KAKAO_LOGIN_REDIRECT_URI}
 logging:
   level:
     org.hibernate.SQL: debug

@@ -2,94 +2,44 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>NewsMind - 뉴스 피드</title>
-    <style>
-        body { font-family:sans-serif; max-width: 640px; margin:0 auto; padding:16px; }
-        header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-        .article { border-bottom:1px solid #eee; padding:12px 0; cursor:pointer; }
-        .article-title { font-weight:bold; margin-bottom:4px; }
-        .article-meta { font-size:12px; color:#666; }
-    </style>
+    <title>NewsMind - Feed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/css/feed.css">
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/feed.js" defer></script>
 </head>
 <body>
-<header>
-    <h2>NewsMind</h2>
-    <div>
-        <button onclick="goSettings()">설정</button>
-        <button onclick="logout()">로그아웃</button>
-    </div>
-</header>
 
-<p id="welcome"></p>
+<div class="feed-container">
 
-<div id="article-list">
-    <!-- 여기엔 /api/news 같은 곳에서 가져온 리스트를 뿌리면 됨 -->
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-left">
+            <img src="https://img.icons8.com/?size=100&id=15263&format=png&color=FFFFFF" class="profile-icon" alt="user-male-circle"/>
+        </div>
+        <div class="header-title">News Mind</div>
+        <div class="header-right">
+            <img src="https://img.icons8.com/?size=100&id=59878&format=png&color=FFFFFF" class="search-icon" alt="user-male-circle"/>
+        </div>
+    </header>
+
+    <!-- 추천 뉴스 타이틀 -->
+    <section class="section-title">
+        <span class="emoji">💬</span>
+        <h3>추천 뉴스</h3>
+        <button class="refresh-btn" onclick="refresh()">
+            <img class="refresh-btn" src="https://img.icons8.com/?size=100&id=59872&format=png&color=9c9c9c">
+        </button>
+        <button class="setting-btn" onclick="location.href='/settings/country?mode=edit'">
+            <img class="setting-btn" src="https://img.icons8.com/?size=100&id=83214&format=png&color=9c9c9c">
+        </button>
+    </section>
+
+    <!-- 뉴스 리스트 -->
+    <div id="newsList" class="news-list"></div>
+
 </div>
 
-<script>
-    function getCookie(name) {
-        const value = document.cookie
-            .split('; ')
-            .find(row => row.startsWith(name + '='));
-        return value ? decodeURIComponent(value.split('=')[1]) : null;
-    }
-
-    function goSettings() {
-        window.location.href = '/settings.html';
-    }
-
-    function logout() {
-        // 쿠키 만료 처리
-        document.cookie = "token=; path=/; max-age=0;";
-        window.location.href = '/login.html';
-    }
-
-    (async function init() {
-        const token = getCookie('token');
-        if (!token) {
-            window.location.href = '/login.html';
-            return;
-        }
-
-        // 내 정보/최초설정 여부 확인
-        const res = await fetch('/api/me', {
-            headers: { 'Authorization': 'Bearer ' + token }
-        });
-
-        if (res.status === 401) {
-            window.location.href = '/login.html';
-            return;
-        }
-
-        const me = await res.json();
-
-        if (!me.hasCompletedSetup) {
-            // 혹시 설정 안한 상태로 들어오면 다시 설정 페이지로
-            window.location.href = '/settings.html';
-            return;
-        }
-
-        document.getElementById('welcome').textContent =
-            (me.nickname || me.email || '사용자') + '님, 오늘의 뉴스예요.';
-
-        // TODO: 실제 뉴스 API 연동
-        // 예시용 더미 데이터
-        const dummy = [
-            { title: '[AI] GPU 시장 동향', source: 'BBC', pubDate: '2025-11-25' },
-            { title: '[경제] 미국 금리 동결', source: 'Bloomberg', pubDate: '2025-11-24' }
-        ];
-
-        const listEl = document.getElementById('article-list');
-        dummy.forEach(a => {
-            const div = document.createElement('div');
-            div.className = 'article';
-            div.innerHTML = `
-            <div class="article-title">${a.title}</div>
-            <div class="article-meta">${a.source} · ${a.pubDate}</div>
-        `;
-            listEl.appendChild(div);
-        });
-    })();
-</script>
 </body>
 </html>

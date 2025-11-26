@@ -1,17 +1,47 @@
 let keywords = [];
+const mode = new URLSearchParams(location.search).get("mode");
 
 window.onload = () => {
-    document.getElementById("addBtn").addEventListener("click", addKeyword);
-
-    document.getElementById("keywordInput").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") addKeyword();
+    checkLogin().then(user => {
+        if (user) {
+            loadEvent();
+            detectMode();
+            loadData(user);
+        }
     });
 };
 
+function loadEvent() {
+    document.getElementById("keywordInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") addKeyword();
+    });
+}
+
+function loadData(user) {
+    $.ajax({
+        url: "/api/user/keyword/selectUserKeywordList",
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({
+            userId: user.userId
+        }),
+        success: function (data) {
+            $.each(data, function (idx, item) {
+                addKeyword(item.keyword);
+            }) ;
+        },
+        error: function (data, status, err) {
+        }
+    });
+}
+
 // 키워드 추가
-function addKeyword() {
+function addKeyword(value) {
     const input = document.getElementById("keywordInput");
-    let value = input.value.trim();
+    if(value == null || value == undefined) {
+        value = input.value.trim();
+    }
 
     if (value === "") return;
 
@@ -50,42 +80,32 @@ function renderKeywords() {
 }
 
 // 나중에 설정 = 초기 모드일 경우 다음 화면으로 이동
-function skipSetting() {
-    location.href = "/settings/finish?mode=initial";
+function confirmSkip() {
+    location.href = "/news/feed";
 }
 
-// 저장 (백엔드 연결 예정)
-function saveKeywords() {
-
-    if (keywords.length === 0) {
-        alert("최소 1개 이상의 키워드를 입력해주세요.");
-        return;
-    }
-
-    // ★ 백엔드 연동은 아래 AJAX 사용 (주석만 남김)
-    /*
-    fetch("/api/settings/keyword/save", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ keywords })
-    }).then(res => res.json())
-      .then(() => {
-          const mode = new URLSearchParams(location.search).get("mode");
-          if (mode === "initial") {
-              location.href = "/settings/finish?mode=initial";
-          } else {
-              alert("저장되었습니다.");
-              history.back();
-          }
-      });
-    */
-
-    // 임시 동작: 다음 페이지로 이동
-    const mode = new URLSearchParams(location.search).get("mode");
-    if (mode === "initial") {
-        location.href = "/settings/finish?mode=initial";
-    } else {
-        alert("저장되었습니다.");
-        history.back();
-    }
+function goNext() {
+    checkLogin().then(user => {
+        if (user) {
+            $.ajax({
+                url: "/api/user/keyword/updateUserKeyword",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    userId: user.userId
+                    , keywords: Array.from(keywords)
+                }),
+                success: function (data) {
+                    if (data.resultMsg == "Success") {
+                        location.href = "/news/feed";
+                    } else {
+                        alert("저장 실패");
+                    }
+                },
+                error: function (data, status, err) {
+                }
+            });
+        }
+    });
 }

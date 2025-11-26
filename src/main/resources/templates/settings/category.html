@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>카테고리 설정</title>
-    <link rel="stylesheet" href="/css/settings-category.css">
+    <link rel="stylesheet" href="/css/settings-common.css">
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/common.js"></script>
 </head>
 <body>
 
@@ -19,18 +21,17 @@
     <!-- edit 모드 전용 탭 헤더 -->
     <div id="editHeader" class="edit-header hidden">
         <div class="header-top">
-            <span class="back-btn" onclick="history.back()">◀</span>
+            <span class="back-btn" onclick="location.href='/news/feed'">◀</span>
             <span class="title">설정 관리</span>
         </div>
         <div class="tabs">
-            <span class="tab" onclick="location.href='/settings/country'">국가</span>
+            <span class="tab" onclick="location.href='/settings/country?mode=edit'">국가</span>
             <span class="tab active">카테고리</span>
-            <span class="tab" onclick="location.href='/settings/keyword'">키워드</span>
+            <span class="tab" onclick="location.href='/settings/keyword?mode=edit'">키워드</span>
         </div>
     </div>
 
-    <!-- 국가 목록 -->
-    <div class="grid" id="categoryGrid"></div>
+    <div class="grid" id="grid"></div>
 
     <!-- init 모드 하단 버튼 -->
     <div id="initBtns" class="bottom-btns hidden">

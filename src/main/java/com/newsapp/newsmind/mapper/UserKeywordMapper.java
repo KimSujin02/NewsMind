@@ -7,8 +7,7 @@ import java.util.Map;
 
 @Mapper
 public interface UserKeywordMapper {
-    String selectNextKeywordId();
     int insertUserKeyword(Map<String, Object> params);
-    int deleteUserKeyword(Map<String, Object> params);
+    int deleteAllUserKeyword(Map<String, Object> params);
     List<Map<String, Object>> selectUserKeywordList(Map<String, Object> params);
 }

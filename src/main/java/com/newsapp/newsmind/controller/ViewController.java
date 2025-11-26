@@ -17,11 +17,6 @@ public class ViewController {
         return "login"; // templates/login.html
     }
 
-//    @RequestMapping("/page/{folder}/{id}")
-//    public String pageMove(@PathVariable String folder, @PathVariable String id){
-//        return folder + "/" + id;
-//    }
-
     @GetMapping("/settings/initial")
     public String initial() {
         return "settings/initial";

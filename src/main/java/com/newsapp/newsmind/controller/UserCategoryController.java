@@ -8,18 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/user/category")
 @RequiredArgsConstructor
+@RequestMapping("/api/user/category")
 public class UserCategoryController {
 
     private final UserCategoryService userCategoryService;
 
-    @PostMapping("/insertUserCategory")
-    public Map<String, Object> insertUserCategory(@RequestBody Map<String, Object> params) {
-        return userCategoryService.insertUserCategory(params);
-    }
-
-    @DeleteMapping("/updateUserCategory")
+    @PostMapping("/updateUserCategory")
     public Map<String, Object> updateUserCategory(@RequestBody Map<String, Object> params) {
         return userCategoryService.updateUserCategory(params);
     }

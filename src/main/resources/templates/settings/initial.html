@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>NewsMind 첫 설정</title>
     <link rel="stylesheet" href="/css/settings.css">
+    <script src="/js/common.js"></script>
 </head>
 <body>
 <div class="nm-wrapper">
-
     <div class="nm-header">
         <div class="nm-header-title">첫 설정 안내</div>
     </div>
@@ -30,17 +30,18 @@
             <button class="nm-btn nm-btn-primary" id="btn-start">지금 설정 시작하기</button>
         </div>
     </div>
-
-   <!-- <div class="nm-bottom-bar">
-        <button class="nm-btn nm-btn-primary" id="btn-start">지금 설정 시작하기</button>
-    </div>-->
 </div>
-
 <script>
-    document.getElementById('btn-start').addEventListener('click', function () {
-        // 최초 설정 모드 → mode=init
-        window.location.href = '/settings/country?mode=init';
-    });
+    // 화면 로드
+    window.onload = () => {
+        checkLogin().then(user => {
+            if (user) {
+                document.getElementById('btn-start').addEventListener('click', function () {
+                    window.location.href = '/settings/country?mode=init';
+                });
+            }
+        });
+    };
 </script>
 </body>
 </html>

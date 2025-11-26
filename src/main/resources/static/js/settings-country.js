@@ -1,29 +1,37 @@
-// 관심 국가 목록
-const countries = [
-    "아르헨티나","오스트레일리아","오스트리아",
-    "벨기에","브라질","캐나다",
-    "중국","콜롬비아","이집트",
-    "프랑스","독일","그리스"
-];
-
+const mode = new URLSearchParams(location.search).get("mode");
 let selected = new Set();
 
 // 화면 로드
 window.onload = () => {
-    renderButtons();
-    detectMode();
+    checkLogin().then(user => {
+        if (user) {
+            getSettingsButton(user, "COUNTRY", function(data) {
+                if(mode == "edit") {
+                    getUserCountrySelected(data);
+                }
+            });
+            detectMode();
+        }
+    });
 };
 
-// 버튼 생성
-function renderButtons() {
-    const grid = document.getElementById("countryGrid");
-
-    countries.forEach(c => {
-        const btn = document.createElement("div");
-        btn.classList.add("country-btn");
-        btn.innerText = c;
-        btn.onclick = () => toggleSelect(c, btn);
-        grid.appendChild(btn);
+function getUserCountrySelected(user) {
+    $.ajax({
+        url: '/api/user/country/selectUserCountryList',
+        method: "POST",
+        dataType : "json",
+        contentType:"application/json",
+        data : JSON.stringify({
+            userId : user.userId
+        }),
+        success: function (data) {
+            $.each(data, function(index, item){
+                $(".box-btn[data-code=" + item.countryCode +"]").addClass("selected");
+                selected.add(item.countryCode);
+            });
+        },
+        error: function (data, status, err) {
+        }
     });
 }
 
@@ -38,26 +46,6 @@ function toggleSelect(country, btn) {
     }
 }
 
-// ------------------------------------------------------------
-// 🎯 init / edit 모드 감지
-// ------------------------------------------------------------
-function detectMode() {
-    const mode = new URLSearchParams(location.search).get("mode");
-
-    if (mode === "init") {
-        // init 모드 표시
-        document.getElementById("initHeader").classList.remove("hidden");
-        document.getElementById("initBtns").classList.remove("hidden");
-    } else {
-        // edit 모드 표시
-        document.getElementById("editHeader").classList.remove("hidden");
-        document.getElementById("editBtns").classList.remove("hidden");
-    }
-}
-
-// ------------------------------------------------------------
-// 🎯 init 모드 : 팝업
-// ------------------------------------------------------------
 function openSkipPopup() {
     document.getElementById("skipPopup").classList.remove("hidden");
 }
@@ -68,22 +56,43 @@ function closeSkipPopup() {
 
 function confirmSkip() {
     // 카테고리 설정 화면으로 이동
-    location.href = "/settings/category?mode=init";
+    fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+        selected.add(data.country.toLowerCase());
+        goNext();
+    });
 }
 
 // ------------------------------------------------------------
 // 🎯 저장 버튼
 // ------------------------------------------------------------
 function goNext() {
-    // ★ 백엔드 저장 API 연결할 예정
-    /*
-    fetch("/api/settings/country/save", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ countries: Array.from(selected) })
-    }).then(...)
-    */
-
-    // 지금은 화면 이동만
-    location.href = "/settings/category?mode=init";
+    checkLogin().then(user => {
+        if (user) {
+            $.ajax({
+                url: "/api/user/country/updateUserCountry",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    userId: user.userId
+                    , countries: Array.from(selected)
+                }),
+                success: function (data) {
+                    if (data.resultMsg == "Success") {
+                        if (mode == "init") {
+                            location.href = "/settings/category?mode=init";
+                        } else {
+                            location.href = "/news/feed";
+                        }
+                    } else {
+                        alert("저장 실패");
+                    }
+                },
+                error: function (data, status, err) {
+                }
+            });
+        }
+    });
 }

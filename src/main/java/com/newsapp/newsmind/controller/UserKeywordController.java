@@ -8,20 +8,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/user/Keyword")
+@RequestMapping("/api/user/keyword")
 @RequiredArgsConstructor
 public class UserKeywordController {
 
     private final UserKeywordService userKeywordService;
 
-    @PostMapping("/insertUserKeyword")
-    public Map<String, Object> insertUserKeyword(@RequestBody Map<String, Object> params) {
-        return userKeywordService.insertUserKeyword(params);
-    }
-
-    @DeleteMapping("/deleteUserKeyword")
-    public Map<String, Object> deleteUserKeyword(@RequestBody Map<String, Object> params) {
-        return userKeywordService.deleteUserKeyword(params);
+    @PostMapping("/updateUserKeyword")
+    public Map<String, Object> updateUserKeyword(@RequestBody Map<String, Object> params) {
+        return userKeywordService.updateUserKeyword(params);
     }
 
     @PostMapping("/selectUserKeywordList")
