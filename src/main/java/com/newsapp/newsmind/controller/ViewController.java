@@ -17,24 +17,9 @@ public class ViewController {
         return "login"; // templates/login.html
     }
 
-    @GetMapping("/settings/initial")
-    public String initial() {
-        return "settings/initial";
-    }
-
-    @GetMapping("/settings/country")
-    public String country() {
-        return "settings/country";
-    }
-
-    @GetMapping("/settings/category")
-    public String category() {
-        return "settings/category";
-    }
-
-    @GetMapping("/settings/keyword")
-    public String keyword() {
-        return "settings/keyword";
+    @GetMapping("/settings/{id}")
+    public String settings(@PathVariable("id") String id) {
+        return "settings/" + id;
     }
 
     @GetMapping("/news/feed")

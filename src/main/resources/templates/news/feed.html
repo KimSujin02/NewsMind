@@ -5,14 +5,16 @@
     <title>NewsMind - Feed</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="/css/feed.css">
+    <link rel="stylesheet" href="/css/settings-category.css">
+    <link rel="stylesheet" href="/css/settings-country.css">
+    <link rel="stylesheet" href="/css/settings-common.css">
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common.js"></script>
     <script src="/js/feed.js" defer></script>
 </head>
 <body>
 
-<div class="feed-container">
-
+<div id="feed" class="feed-container">
     <!-- 헤더 -->
     <header class="header">
         <div class="header-left">
@@ -23,11 +25,14 @@
             <img src="https://img.icons8.com/?size=100&id=59878&format=png&color=FFFFFF" class="search-icon" alt="user-male-circle"/>
         </div>
     </header>
-
     <!-- 추천 뉴스 타이틀 -->
     <section class="section-title">
         <span class="emoji">💬</span>
         <h3>추천 뉴스</h3>
+        <button class="refresh-btn" onclick="openFilter()">
+            <img id="offFilter" class="refresh-btn" src="https://img.icons8.com/?size=100&id=7bAbbU6deLaV&format=png&color=9c9c9c">
+            <img id="onFilter" class="refresh-btn hidden" src="https://img.icons8.com/?size=100&id=7bAbbU6deLaV&format=png&color=5C7CFA">
+        </button>
         <button class="refresh-btn" onclick="refresh()">
             <img class="refresh-btn" src="https://img.icons8.com/?size=100&id=59872&format=png&color=9c9c9c">
         </button>
@@ -38,7 +43,30 @@
 
     <!-- 뉴스 리스트 -->
     <div id="newsList" class="news-list"></div>
+</div>
+<div id="filterContainer" class="container hidden">
+    <div class="header-top">
+        <span class="back-btn" onclick="filterClose()">◀</span>
+        <span class="title">필터</span>
+        <button class="setting-btn" onclick="location.href='/settings/country?mode=edit'">
+            <img class="setting-btn" src="https://img.icons8.com/?size=100&id=83214&format=png&color=9c9c9c">
+        </button>
+    </div>
+    <div class="tabs"></div>
 
+    <div style="margin: 10px">국가</div>
+    <div class="grid" id="countryGrid"></div>
+
+    <div style="margin: 10px">카테고리</div>
+    <div class="grid" id="categoryGrid"></div>
+
+    <div style="margin: 10px">키워드</div>
+    <div class="grid" id="keywordGrid"></div>
+
+    <div class="bottom-btns">
+        <button class="btn-gray" onclick="resetFilter()">필터 초기화</button>
+        <button class="btn-blue" onclick="goFilterNext()">완료</button>
+    </div>
 </div>
 
 </body>

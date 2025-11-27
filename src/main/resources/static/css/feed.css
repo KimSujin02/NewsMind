@@ -8,6 +8,11 @@ body {
     font-family: 'Pretendard', sans-serif;
 }
 
+/* ===== 공통 util ===== */
+.hidden {
+    display: none;
+}
+
 .feed-container {
     width: 430px;
     min-height: 100vh;
@@ -82,12 +87,21 @@ body {
     background: #d9d9d9;
     border-radius: 4px;
     margin-right: 12px;
+    overflow: hidden;   /* 넘치는 부분 잘림 */
+    border-radius: 6px; /* 모서리 둥글게 하고 싶으면 */
+}
+
+.news-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* 핵심 */
+    object-position: center; /* 가운데 기준으로 자르기 */
 }
 
 .news-content {
     flex: 1;
 }
-
+/*
 .news-title {
     font-size: 15px;
     font-weight: 600;
@@ -95,7 +109,7 @@ body {
     line-height: 1.4em;
     height: 42px;
     overflow: hidden;
-}
+}*/
 
 .news-category {
     font-size: 13px;
@@ -117,4 +131,43 @@ body {
     font-size: 12px;
     font-weight: 600;
     color: #3cb371;
+    max-width: 157px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.news-category,
+.news-tags,
+.news-date {
+    width: 100%;
+    white-space: nowrap;        /* 한 줄만 표시 */
+    overflow: hidden;           /* 넘친 글자 숨김 */
+    text-overflow: ellipsis;    /* ... 표시 */
+    display: block;             /* inline 요소면 ellipsis 작동안함 */
+}
+
+.news-category b,
+.news-tags b {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 200px;  /* 필요 시 조절 가능 (너무 길면 줄임) */
+    vertical-align: bottom;
+}
+
+.news-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.4em;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;    /* 👉 두 줄만 보여줌 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;         /* 넘치는 부분 감춤 */
+    text-overflow: ellipsis;  /* ... 표시 */
+    max-height: calc(1.4em * 2); /* 두 줄 높이 */
 }
