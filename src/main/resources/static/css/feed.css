@@ -101,15 +101,6 @@ body {
 .news-content {
     flex: 1;
 }
-/*
-.news-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    line-height: 1.4em;
-    height: 42px;
-    overflow: hidden;
-}*/
 
 .news-category {
     font-size: 13px;

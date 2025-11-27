@@ -55,7 +55,7 @@ function getTotalNewsList(user, goNextPage) {
         , targetLang : 'ko'
     };
 
-    if (goNextPage === "Y" && nextPage) {
+    if (goNextPage === "Y" && nextPage != null) {
         params.page = nextPage;
     }
 
@@ -80,12 +80,8 @@ function getTotalNewsList(user, goNextPage) {
             drawNewsGrid(data);
         },
         error: function (xhr, status, err) {
-            if (xhr.status === 429) {
-                alert("뉴스 서버 호출 제한에 걸렸어요. 잠시 후 다시 시도해주세요 🥲");
-                nextPage = null; // 더 이상 요청 안 보내도록
-            }
-            console.error("뉴스 조회 실패", err, xhr.responseText);
-            // 429면 잠깐 막아두기
+            alert("뉴스 서버 호출 제한에 걸렸어요. 잠시 후 다시 시도해주세요.");
+            nextPage = null; // 더 이상 요청 안 보내도록
         },
         complete: function () {
             isLoading = false;
@@ -105,9 +101,9 @@ function drawNewsGrid(data) {
     var newsList = $("#newsList");
     $.each(data.results, function(index, item){
         var innerHTML = `
-            <div class="news-card">
+            <div class="news-card" onclick="location.href='/news/detail?articleId=${item.article_id}'">
                 <div class="news-thumb">
-                    <img src="${item.image_url}"></img>
+                    <img src="${item.image_url ? item.image_url : 'https://img.icons8.com/?size=100&id=-5tLho_7N4sS&format=png&color=FFFFFF'}">
                 </div>
                 <div class="news-content">
                     <div class="news-title">${item.title}</div>
@@ -255,3 +251,7 @@ function filterClose() {
     $("#categoryGrid").empty();
     $("#keywordGrid").empty();
 }
+
+$('.news-card').on('click', function() {
+    sessionStorage.setItem("feedScroll", window.scrollY);
+});

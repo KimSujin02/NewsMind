@@ -29,7 +29,7 @@ mybatis:
     map-underscore-to-camel-case: true
 app:
   ai:
-    enabled: false
+    enabled: true
   newsdata:
     api-key: ${NEWSDATA_API_KEY}
     base-url: https://newsdata.io/api/1

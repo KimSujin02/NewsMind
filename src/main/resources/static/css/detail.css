@@ -1,0 +1,181 @@
+.detail-container {
+    width: 430px;
+    margin: 0 auto;
+    padding: 14px;
+    background: #fff;
+    font-family: 'Pretendard', sans-serif;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-back-btn,
+.detail-origin-btn {
+    padding: 6px 12px;
+    background: #e2e2e2;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.detail-press-name {
+    margin-top: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.detail-title {
+    margin: 6px 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.detail-meta {
+    color: #777;
+    font-size: 13px;
+}
+
+.detail-sentiment {
+    margin-left: 6px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: #dbf5d8;
+    color: #2f8f2f;
+    font-size: 12px;
+}
+
+.detail-tags {
+    margin: 12px 0;
+}
+
+/* ===== 태그 영역 feed 스타일로 통일 ===== */
+.detail-info-line {
+    font-size: 13px;
+    margin-top: 6px;
+    color: #444;
+}
+
+/* 국가 라벨 (feed와 동일한 초록색) */
+.detail-country {
+    color: #3cb371;
+    font-size: 12px;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+/* Category 라벨 */
+.detail-category {
+    color: #444;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+/* AI 태그 */
+.detail-ai-tag {
+    color: #777;
+    font-size: 12px;
+    margin-left: 0;
+}
+
+
+.detail-img-box {
+    width: 100%;
+    height: 200px;
+    margin: 15px 0;
+    background: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.detail-content {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+/* AI 버튼 박스 */
+.detail-ai-btn-box {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.detail-ai-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: #0d466f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.detail-ai-result {
+    margin-top: 20px;
+    padding: 18px;
+    background: #eef4f8;
+    border-radius: 10px;
+    border-left: 5px solid #0d466f;
+}
+
+.detail-ai-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0d466f;
+    margin-bottom: 15px;
+}
+
+.detail-ai-section {
+    margin-bottom: 20px;
+}
+
+.detail-ai-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.detail-ai-summary {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #444;
+    white-space: pre-line;
+}
+
+.detail-ai-analysis-list {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.detail-ai-analysis-list li {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+    color: #444;
+}
+
+.detail-ai-keywords {
+    font-size: 14px;
+    color: #222;
+}
+
+.detail-ai-keywords span {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #dce7ef;
+    border-radius: 6px;
+    margin-right: 6px;
+    font-size: 13px;
+}

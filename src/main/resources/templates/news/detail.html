@@ -2,9 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>NewsMind</title>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/common.js"></script>
+    <link rel="stylesheet" href="/css/feed.css">
+    <link rel="stylesheet" href="/css/detail.css">
 </head>
 <body>
+<div class="detail-container">
+
+    <!-- 상단 헤더 -->
+    <div class="detail-header">
+        <button class="detail-back-btn" onclick="goBackToFeed()">◀</button>
+        <button class="detail-origin-btn" id="openOriginalBtn">원문보기</button>
+    </div>
+
+    <!-- 언론사 -->
+    <div class="detail-press-name" id="pressName">언론사 이름</div>
+
+    <!-- 제목 -->
+    <h2 class="detail-title" id="newsTitle"></h2>
+
+    <!-- 발행일/감성 -->
+    <div class="detail-meta">
+        <span id="newsDate"></span>
+    </div>
+
+    <!-- 국가/카테고리/태그 -->
+    <div class="detail-info-line">
+        <span class="detail-category">카테고리: <b id="detailCategory"></b></span>
+        <span class="detail-ai-tag">AI Tags: <b id="detailAiTag"></b></span>
+    </div>
+
+    <div class="detail-info-line">
+        <span class="detail-country" id="detailCountry"></span>
+    </div>
+
+    <!-- 대표 이미지 -->
+    <div class="detail-img-box">
+        <img id="newsImage" class="detail-image">
+    </div>
+
+    <!-- 본문 -->
+    <div class="detail-content" id="newsContent">
+    </div>
+
+    <!-- AI 분석 버튼 -->
+    <div class="detail-ai-btn-box">
+        <button class="detail-ai-btn" onclick="requestAiSummary()">AI 요약 / 분석 요청</button>
+    </div>
+
+    <!-- AI 결과 출력 영역 -->
+    <div id="aiResultContainer" class="detail-ai-result hidden">
+        <h3 class="detail-ai-title">AI 분석 결과</h3>
+        <div class="detail-ai-section">
+            <h4 class="detail-ai-section-title">요약</h4>
+            <p id="aiSummary" class="detail-ai-summary"></p>
+        </div>
+        <div class="detail-ai-section">
+            <h4 class="detail-ai-section-title">분석</h4>
+            <ul id="aiAnalysis" class="detail-ai-analysis-list"></ul>
+        </div>
+        <div class="detail-ai-section">
+            <h4 class="detail-ai-section-title">키워드</h4>
+            <div id="aiKeywords" class="detail-ai-keywords"></div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/detail.js"></script>
 
 </body>
 </html>

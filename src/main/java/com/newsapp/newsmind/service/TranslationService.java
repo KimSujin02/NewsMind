@@ -55,10 +55,16 @@ public class TranslationService {
 
     // 하나 번역
     public NewsDataArticleDto translateOne(NewsDataArticleDto item, String targetLang) {
+//        return item.toBuilder()
+//                .titleTranslated(translate(item.getTitle(), targetLang))
+//                .descriptionTranslated(translate(item.getDescription(), targetLang))
+//                .contentTranslated(translate(item.getContent(), targetLang))
+//                .translatedLang(targetLang)
+//                .build();
         return item.toBuilder()
-                .titleTranslated(translate(item.getTitle(), targetLang))
-                .descriptionTranslated(translate(item.getDescription(), targetLang))
-                .contentTranslated(translate(item.getContent(), targetLang))
+                .title(translate(item.getTitle(), targetLang))
+                .description(translate(item.getDescription(), targetLang))
+                .content(translate(item.getContent(), targetLang))
                 .translatedLang(targetLang)
                 .build();
     }
