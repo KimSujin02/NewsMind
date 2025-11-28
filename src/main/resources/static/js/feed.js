@@ -51,7 +51,7 @@ function getTotalNewsList(user, goNextPage) {
 
     var params = {
         userId : user.userId
-        , translate : false
+        , translate : true
         , targetLang : 'ko'
     };
 

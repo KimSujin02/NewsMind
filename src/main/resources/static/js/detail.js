@@ -26,48 +26,12 @@ window.onload = async () => {
         method: "POST",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify({ articleId: currentDetailArticleId }),
+        data: JSON.stringify({
+            articleId: currentDetailArticleId
+            , translate : true
+            , targetLang : "ko"
+        }),
         success: function (item) {
-    // var item = {
-    //         "article_id": "8dc86666a2e704f7b748bad529fe6f22",
-    //         "source_id": "gizmochina",
-    //         "source_name": "Gizmochina",
-    //         "title": "Gemini for Wear OS: How Google’s AI Assistant Changes Daily Watch Use",
-    //         "titleTranslated": null,
-    //
-    //         "description": "Google‘s Gemini is no longer just a phone-first AI assistant; it’s now on your wrist, fundamentally changing how you interact with your smartwatch. Since its rollout earlier this year, Gemini has begun replacing Google Assistant on smartwatches running Wear OS 4 and above. Whether you own a Pixel Watch 4, Galaxy Watch 8, or OnePlus [...]The post Gemini for Wear OS: How Google’s AI Assistant Changes Daily Watch Use appeared first on Gizmochina.",
-    //         "descriptionTranslated": null,
-    //
-    //         "content": "ONLY AVAILABLE IN PAID PLANS",
-    //         "contentTranslated": null,
-    //
-    //         "image_url": "https://www.gizmochina.com/wp-content/uploads/2025/11/Gemini-for-Wear-OS-1024x427.webp?x70461=",
-    //
-    //         "link": "https://www.gizmochina.com/2025/11/27/gemini-for-wear-os-how-google-ai-assistant-changes-daily-watch-use/",
-    //
-    //         "creator": ["Soumyakanti"],
-    //
-    //         "keywords": ["featured", "top stories", "news", "gemini ai", "google", "wear os"],
-    //
-    //         "country": [
-    //             "india",
-    //             "united states of america",
-    //             "united kingdom",
-    //             "australia",
-    //             "singapore",
-    //             "canada",
-    //             "china"
-    //         ],
-    //
-    //         "category": ["technology"],
-    //
-    //         "pubDate": "2025-11-27 04:36:52",
-    //
-    //         "ai_tag": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
-    //
-    //         "translatedLang": null,
-    //         "duplicate": false
-    //   }
     renderDetail(item);
         }
     });
@@ -85,7 +49,7 @@ function renderDetail(item) {
     const content =
         item.contentTranslated ??
         item.descriptionTranslated ??
-        (item.content === "ONLY AVAILABLE IN PAID PLANS" ? null : item.content) ??
+        (item.content === "ONLY AVAILABLE IN PAID PLANS" || item.content === "유료 요금제에서만 이용 가능" ? null : item.content) ??
         item.description ??
         "내용 데이터가 제공되지 않는 기사입니다.";
 
