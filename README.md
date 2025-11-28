@@ -9,6 +9,8 @@ Open AI API Model : gpt-4o-mini
 <br/>
 <br/>
 서버 : AWS EC2
+DB : MySQL
+<img width="1126" height="873" alt="newsmind" src="https://github.com/user-attachments/assets/b1d70d4b-46da-4858-8e6a-3eaf42232e02" />
+
 
 https://github.com/user-attachments/assets/5241028c-869a-4262-a3c6-44a6940cb79a
-
